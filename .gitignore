@@ -134,3 +134,13 @@ dist
 .yarn/build-state.yml
 .yarn/install-state.gz
 .pnp.*
+
+# Allure generated files
+allure-results/
+allure-report/
+
+# Junit test results
+junit-report/
+
+# Video Results
+video/
