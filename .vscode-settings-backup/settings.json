@@ -1,0 +1,97 @@
+{
+    "tabnine.experimentalAutoImports": true,
+    "files.autoSave": "onFocusChange",
+    "prettier.tabWidth": 4,
+    "terminal.integrated.defaultProfile.windows": "Git Bash",
+    "git.confirmSync": false,
+    "git.enableSmartCommit": true,
+    "[javascript]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "liveServer.settings.donotShowInfoMsg": true,
+    "github.copilot.enable": {
+        "*": true,
+        "plaintext": true,
+        "markdown": true,
+        "scminput": false,
+        "yaml": true
+    },
+    "editor.inlineSuggest.enabled": true,
+    "workbench.startupEditor": "none",
+    "extensions.ignoreRecommendations": true,
+    "explorer.confirmDelete": false,
+    "[python]": {
+        "editor.formatOnType": true
+    },
+    "[typescript]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[html]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[javascriptreact]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[json]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[jsonc]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "gitlens.views.branches.showBranchComparison": false,
+    "gitlens.gitCommands.skipConfirmations": [
+        "fetch:command",
+        "stash-push:command"
+    ],
+    "typescript.preferGoToSourceDefinition": true,
+    "javascript.preferGoToSourceDefinition": true,
+    "typescript.referencesCodeLens.showOnAllFunctions": true,
+    "typescript.referencesCodeLens.enabled": true,
+    "liveServer.settings.donotVerifyTags": true,
+    "editor.formatOnPaste": true,
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "prettier.requireConfig": true,
+    "editor.codeActionsOnSave": {
+        "source.fixAll.eslint": "explicit"
+    },
+    "editor.formatOnType": true,
+    "formattingToggle.affects": [
+        "editor.formatOnPaste",
+        "editor.formatOnSave",
+        "editor.formatOnType"
+    ],
+    "formattingToggle.statusBarText": {
+        "formattingEnabled": "Formatting: $(check)",
+        "formattingDisabled": "Formatting: $(x)"
+    },
+    "indentRainbow.lightIndicatorStyleLineWidth": 2,
+    "cSpell.userWords": [
+        "qase"
+    ],
+    "debug.javascript.autoAttachFilter": "disabled",
+    "playwright.reuseBrowser": false,
+    "playwright.showTrace": false,
+    "gitlens.views.branches.branches.layout": "list",
+    "workbench.colorTheme": "One Monokai",
+    "gitlens.graph.layout": "editor",
+    "github.copilot.editor.enableAutoCompletions": true,
+    "gitlens.views.remotes.branches.layout": "list",
+    "typescript.updateImportsOnFileMove.enabled": "always",
+    "prettier.printWidth": 180,
+    "files.eol": "\n",
+    "workbench.settings.applyToAllProfiles": [
+        "files.eol"
+    ],
+    "settingsSync.ignoredSettings": [
+        "files.eol"
+    ],
+    "database-client.autoSync": true,
+    "githubPullRequests.pullBranch": "never",
+    "javascript.referencesCodeLens.enabled": true,
+    "javascript.referencesCodeLens.showOnAllFunctions": true,
+    "workbench.editor.enablePreview": false,
+    "github.copilot.advanced": {
+        
+    },
+}
