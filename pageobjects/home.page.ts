@@ -24,6 +24,24 @@ export enum ElementsMenuItem {
 export enum FormsMenuItem {
     practiceForm = 'Practice Form'
 }
+export enum AlertsFrameWindowsMenuItem {
+    browserWindows = 'Browser Windows',
+    alerts = 'Alerts',
+    frames = 'Frames',
+    nestedFrames = 'Nested Frames',
+    modalDialogs = 'Modal Dialogs'
+}
+export enum WidgetsMenuItem {
+  accordian = 'Accordian',
+  autoComplete = 'Auto Complete',
+  datePicker = 'Date Picker',
+  slider = 'Slider',
+  progressBar = 'Progress Bar',
+  tabs = 'Tabs',
+  toolTips = 'Tool Tips',
+  menu = 'Menu',
+  selectMenu = 'Select Menu'
+}
 
 export class HomePage extends Page {
     public get allCards() {
@@ -70,6 +88,24 @@ export class HomePage extends Page {
         await element.scrollIntoView();
         await element.click();
     }
+    /**
+     * Select an item from the Forms section using enum
+     * @param item Menu item from AlertsFrameWindowsMenuItem enum
+     */
+    public async selectAlertsMenuItem(item: AlertsFrameWindowsMenuItem): Promise<void> {
+    const element = await $(`//ul[@class="menu-list"]//span[text()="${item}"]`);
+    await element.scrollIntoView();
+    await element.click();
+    }
+    /**
+    * Select an item from the Widgets section using enum
+    * @param item Menu item from WidgetsMenuItem enum
+    */
+   public async selectWidgetsMenuItem(item: WidgetsMenuItem): Promise<void> {
+   const element = await $(`//ul[@class='menu-list']//span[text()="${item}"]`);
+   await element.scrollIntoView();
+   await element.click();
+   }
 }
 
 export const homePage = new HomePage();

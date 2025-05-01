@@ -42,7 +42,6 @@ export class ElementsPage extends Page {
     public get radioResultText() { return $('.text-success'); }
     // Web Tables Section
     public get rowsPerPageSelect() { return $('select[aria-label="rows per page"]'); }
-    public get searchInput() { return $('#searchBox'); }
     public get addNewRecordButton() { return $('#addNewRecordButton'); }
     public get firstNameHeader() { return $('div.rt-resizable-header-content=First Name'); }
     public get lastNameHeader() { return $('div.rt-resizable-header-content=Last Name'); }
@@ -50,8 +49,6 @@ export class ElementsPage extends Page {
     public get emailHeader() { return $('div.rt-resizable-header-content=Email'); }
     public get salaryHeader() { return $('div.rt-resizable-header-content=Salary'); }
     public get departmentHeader() { return $('div.rt-resizable-header-content=Department'); }
-    public get firstEditButton() { return $('#edit-record-1'); }
-    public get firstDeleteButton() { return $('#delete-record-1'); }
 
     // Registration Form
     public get inputFirstName() { return $('#firstName'); }
@@ -62,7 +59,7 @@ export class ElementsPage extends Page {
     public get inputDepartment() { return $('#department'); }
     public get submitButtonForm() { return $('#submit'); }
 
-    // Tree methods
+    // Methods
     public expandArrowByName(name: string) {
         return $(`//span[@class="rct-title" and text()="${name}"]/ancestor::span[@class="rct-text"]//button`);
     }
@@ -107,8 +104,6 @@ export class ElementsPage extends Page {
         return await this.resultText.getText();
     }
 
-    // Form methods
-
     public async fillForm(fullName: string, email: string, currentAddress: string, permanentAddress: string): Promise<void> {
     await this.inputFullName.setValue(fullName);
     await this.inputEmail.setValue(email);
@@ -149,7 +144,6 @@ export class ElementsPage extends Page {
         await expect(this.submitButton).toBeDisplayed();
     }
 
-    // Upload / Download methods
     public async uploadFile(filePath: string): Promise<void> {
         const remoteFilePath = await browser.uploadFile(filePath);
         await this.uploadInput.setValue(remoteFilePath);
@@ -160,14 +154,12 @@ export class ElementsPage extends Page {
         return await this.uploadedFilePath.getText();
     }
 
-public async downloadFile(expectedFileName: string): Promise<string> {
+    public async downloadFile(expectedFileName: string): Promise<string> {
     await this.downloadButton.scrollIntoView();
     await this.downloadButton.waitForClickable({ timeout: 5000 });
     await this.downloadButton.click();
-
     const downloadDir = path.resolve('./fixtures');
     const fullPath = path.join(downloadDir, expectedFileName);
-
     await browser.waitUntil(
         async () => {
             const exists = await fs.pathExists(fullPath);
@@ -180,7 +172,6 @@ public async downloadFile(expectedFileName: string): Promise<string> {
             timeoutMsg: `Expected file ${expectedFileName} to be downloaded`
         }
     );
-
     return fullPath;
 }
 
@@ -193,6 +184,7 @@ public async downloadFile(expectedFileName: string): Promise<string> {
             await fs.unlink(filePath);
         }
     }
+
     public async isRadioEnabled(radio: WebdriverIO.Element): Promise<boolean> {
     return await radio.isEnabled();
 }
@@ -208,18 +200,17 @@ public async downloadFile(expectedFileName: string): Promise<string> {
     return await this.radioResultText.getText();
     }
     
-    // Change rows per page
     public async changeRowsPerPage(value: string): Promise<void> {
     await this.rowsPerPageSelect.selectByVisibleText(`${value} rows`);
 }
 
-// Add new record
+
     public async addNewRecord(firstName: string, lastName: string, email: string, age: string, salary: string, department: string): Promise<void> {
     await this.addNewRecordButton.click();
     await this.fillRegistrationForm(firstName, lastName, email, age, salary, department);
 }
 
-// Edit record by Name
+
     public async editRecordByName(name: string): Promise<void> {
     const editButton = await $(`//div[@role='row' and .//div[text()='${name}']]//span[@title='Edit']`);
     await editButton.scrollIntoView();
@@ -241,14 +232,13 @@ public async downloadFile(expectedFileName: string): Promise<string> {
     await this.submitForm();
 }
 
-public async deleteRecordByName(name: string): Promise<void> {
+    public async deleteRecordByName(name: string): Promise<void> {
     const deleteButton = await $(`//div[@role='row' and .//div[text()='${name}']]//span[@title='Delete']`);
     await deleteButton.scrollIntoView();
     await deleteButton.waitForClickable({ timeout: 5000 });
     await deleteButton.click();
 }
 
-// Fill registration form
     private async fillRegistrationForm(firstName: string, lastName: string, email: string, age: string, salary: string, department: string): Promise<void> {
     await this.inputFirstName.setValue(firstName);
     await this.inputLastName.setValue(lastName);
@@ -259,15 +249,14 @@ public async deleteRecordByName(name: string): Promise<void> {
     await this.submitButtonForm.click();
 }
 
-// Search for record
-public async searchRecord(name: string): Promise<void> {
+    public async searchRecord(name: string): Promise<void> {
     const searchInput = await $('#searchBox');
     await searchInput.waitForDisplayed({ timeout: 5000 });
     await searchInput.waitForEnabled({ timeout: 5000 });
     await searchInput.clearValue();
     await searchInput.setValue(name);
 }
-// Verify column headers
+
     public async verifyColumnHeaders(): Promise<void> {
     await expect(this.firstNameHeader).toBeDisplayed();
     await expect(this.lastNameHeader).toBeDisplayed();
