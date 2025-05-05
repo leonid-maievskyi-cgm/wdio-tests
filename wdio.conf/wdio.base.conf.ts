@@ -32,11 +32,11 @@ export const config: WebdriverIO.Config = {
 
     reporters: [
         'spec',
-        // ['allure', {
-        //     outputDir: 'allure-results',
-        //     disableWebdriverStepsReporting: true,
-        //     disableWebdriverScreenshotsReporting: false
-        // }],
+        ['allure', {
+            outputDir: 'allure-results',
+            disableWebdriverStepsReporting: true,
+            disableWebdriverScreenshotsReporting: false
+        }],
         ['junit', {
             outputDir: './junit-report/',
             outputFileFormat: function (options) {

@@ -1,118 +1,120 @@
-import { homePage, CardName, ElementsMenuItem } from '../../../pageobjects/home.page';
-import { elementsPage } from '../../../pageobjects/elements.page';
 import path from 'path';
 import { expect } from 'chai';
+import { homePage, CardName, ElementsMenuItem } from '../../../pageobjects/home.page';
+import { elementsPage } from '../../../pageobjects/elements.page';
 
 describe('DemoQA Elements Section', () => {
-    it('Checkbox - should expand/collapse tree and select a checkbox', async () => {
-        await homePage.open();
-        await homePage.clickCard(CardName.elements);
-        await homePage.selectElementMenuItem(ElementsMenuItem.checkBox);
 
-        await elementsPage.expandAll();
-        expect(await elementsPage.desktopNode.isDisplayed()).true;
+  it('Checkbox - should expand/collapse tree and select a checkbox', async () => {
+    await homePage.open();
+    await homePage.clickCard(CardName.elements);
+    await homePage.selectElementMenuItem(ElementsMenuItem.checkBox);
 
-        await elementsPage.collapseAll();
-        expect(await elementsPage.desktopNode.isDisplayed()).false;
+    await elementsPage.expandAll();
+    expect(await elementsPage.desktopNode.isDisplayed()).to.be.true;
 
-        await elementsPage.expandNode('Home');
-        await elementsPage.expandNode('Desktop');
-        await elementsPage.clickCheckbox('Commands');
+    await elementsPage.collapseAll();
+    expect(await elementsPage.desktopNode.isDisplayed()).to.be.false;
 
-        const isChecked = await elementsPage.isCheckboxChecked('Commands');
-        expect(isChecked).true;
+    await elementsPage.expandNode('Home');
+    await elementsPage.expandNode('Desktop');
+    await elementsPage.clickCheckbox('Commands');
 
-        const resultText = await elementsPage.getResultText();
-        expect(resultText).to.contain('commands');
-    });
+    const isChecked = await elementsPage.isCheckboxChecked('Commands');
+    expect(isChecked).to.be.true;
 
-    it('Text Box - should fill the Text Box form and submit', async () => {
-        await homePage.open();
-        await homePage.clickCard(CardName.elements);
-        await homePage.selectElementMenuItem(ElementsMenuItem.textBox);
+    const resultText = await elementsPage.getResultText();
+    expect(resultText).to.contain('commands');
+  });
 
-        await elementsPage.verifyFormElementsVisible();
-        await elementsPage.fillForm(
-            'John Doe',
-            'john.doe@example.com',
-            '123 Main St',
-            '456 Another St'
-        );
-        await elementsPage.submitForm();
-    });
+  it('Text Box - should fill the Text Box form and submit', async () => {
+    await homePage.open();
+    await homePage.clickCard(CardName.elements);
+    await homePage.selectElementMenuItem(ElementsMenuItem.textBox);
 
-    it('Upload and Download - should upload and download a file successfully', async () => {
-        await homePage.open();
-        await homePage.clickCard(CardName.elements);
-        await homePage.selectElementMenuItem(ElementsMenuItem.uploadDownload);
+    await elementsPage.verifyFormElementsVisible();
+    await elementsPage.fillForm(
+      'John Doe',
+      'john.doe@example.com',
+      '123 Main St',
+      '456 Another St'
+    );
+    await elementsPage.submitForm();
+  });
 
-        const filePath = path.resolve('./fixtures/test_txt.txt');
-        await elementsPage.uploadFile(filePath);
+  it('Upload and Download - should upload and download a file successfully', async () => {
+    await homePage.open();
+    await homePage.clickCard(CardName.elements);
+    await homePage.selectElementMenuItem(ElementsMenuItem.uploadDownload);
 
-        const uploadedFilePath = await elementsPage.getUploadedFilePath();
-        expect(uploadedFilePath).to.contain('test_txt.txt');
+    const filePath = path.resolve('./fixtures/test_txt.txt');
+    await elementsPage.uploadFile(filePath);
 
-        const downloadedFilePath = await elementsPage.downloadFile('sampleFile.jpeg');
-        const isDownloadedFileExists = await elementsPage.isFileExists(downloadedFilePath);
-        expect(isDownloadedFileExists).true;
+    const uploadedFilePath = await elementsPage.getUploadedFilePath();
+    expect(uploadedFilePath).to.contain('test_txt.txt');
 
-        await elementsPage.deleteFile(downloadedFilePath);
-    });
+    const downloadedFilePath = await elementsPage.downloadFile('sampleFile.jpeg');
+    const isDownloadedFileExists = await elementsPage.isFileExists(downloadedFilePath);
+    expect(isDownloadedFileExists).to.be.true;
 
-    it('Radio Button - should verify radio buttons functionality', async () => {
-        await homePage.open();
-        await homePage.clickCard(CardName.elements);
-        await homePage.selectElementMenuItem(ElementsMenuItem.radioButton);
+    await elementsPage.deleteFile(downloadedFilePath);
+  });
 
-        expect(await elementsPage.isRadioEnabled(elementsPage.yesRadio)).true;
-        await elementsPage.clickLabelForRadio('yesRadio');
-        expect(await elementsPage.getRadioResultText()).to.contain('Yes');
+  it('Radio Button - should verify radio buttons functionality', async () => {
+    await homePage.open();
+    await homePage.clickCard(CardName.elements);
+    await homePage.selectElementMenuItem(ElementsMenuItem.radioButton);
 
-        expect(await elementsPage.isRadioEnabled(elementsPage.impressiveRadio)).true;
-        await elementsPage.clickLabelForRadio('impressiveRadio');
-        expect(await elementsPage.getRadioResultText()).to.contain('Impressive');
+    expect(await elementsPage.isRadioEnabled(elementsPage.yesRadio)).to.be.true;
+    await elementsPage.clickLabelForRadio('yesRadio');
+    expect(await elementsPage.getRadioResultText()).to.contain('Yes');
 
-        expect(await elementsPage.isRadioEnabled(elementsPage.noRadio)).false;
-    });
+    expect(await elementsPage.isRadioEnabled(elementsPage.impressiveRadio)).to.be.true;
+    await elementsPage.clickLabelForRadio('impressiveRadio');
+    expect(await elementsPage.getRadioResultText()).to.contain('Impressive');
 
-    it('Web Tables - should verify web tables functionality', async () => {
-        await homePage.open();
-        await homePage.clickCard(CardName.elements);
-        await homePage.selectElementMenuItem(ElementsMenuItem.webTables);
+    expect(await elementsPage.isRadioEnabled(elementsPage.noRadio)).to.be.false;
+  });
 
-        await elementsPage.verifyColumnHeaders();
-        await elementsPage.changeRowsPerPage('50');
+  it('Web Tables - should verify web tables functionality', async () => {
+    await homePage.open();
+    await homePage.clickCard(CardName.elements);
+    await homePage.selectElementMenuItem(ElementsMenuItem.webTables);
 
-        await elementsPage.addNewRecord(
-            'TestName',
-            'TestLastName',
-            'test@example.com',
-            '30',
-            '5000',
-            'QA'
-        );
+    await elementsPage.verifyColumnHeaders();
+    await elementsPage.changeRowsPerPage('50');
 
-        await elementsPage.searchRecord('TestName');
-        const searchResult = await elementsPage.getTableText();
-        expect(searchResult).to.contain('TestName');
+    await elementsPage.addNewRecord(
+      'TestName',
+      'TestLastName',
+      'test@example.com',
+      '30',
+      '5000',
+      'QA'
+    );
 
-        await elementsPage.editRecord(
-            'TestName',
-            'EditedName',
-            'EditedLastName',
-            'edited@example.com',
-            '31',
-            '6000',
-            'Dev'
-        );
+    await elementsPage.searchRecord('TestName');
+    const searchResult = await elementsPage.getTableText();
+    expect(searchResult).to.contain('TestName');
 
-        await elementsPage.searchRecord('EditedName');
-        const editedResult = await elementsPage.getTableText();
-        expect(editedResult).to.contain('EditedName');
+    await elementsPage.editRecord(
+      'TestName',
+      'EditedName',
+      'EditedLastName',
+      'edited@example.com',
+      '31',
+      '6000',
+      'Dev'
+    );
 
-        await elementsPage.deleteRecordByName('EditedName');
-        await elementsPage.searchRecord('EditedName');
-        const deletedResult = await elementsPage.getTableText();
-        expect(deletedResult).to.not.contain('EditedName');
-    });
+    await elementsPage.searchRecord('EditedName');
+    const editedResult = await elementsPage.getTableText();
+    expect(editedResult).to.contain('EditedName');
+
+    await elementsPage.deleteRecordByName('EditedName');
+    await elementsPage.searchRecord('EditedName');
+    const deletedResult = await elementsPage.getTableText();
+    expect(deletedResult).to.not.contain('EditedName');
+  });
+
 });
